@@ -5,12 +5,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Client {
-    String name = "Ben";
+    String name;
 
     public String getName() {
         return name;
     }
 
+    @Value("${clientName}")
     public void setName(String name) {
         this.name = name;
     }
