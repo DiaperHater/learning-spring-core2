@@ -1,7 +1,11 @@
 package com.val.beans;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
 public class Client {
-    String name;
+    String name = "Ben";
 
     public String getName() {
         return name;
