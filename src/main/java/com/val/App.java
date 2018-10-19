@@ -13,11 +13,20 @@ public class App {
         ApplicationContext context = new ClassPathXmlApplicationContext("app-config.xml");
         App app = (App) context.getBean("app");
 
-        System.out.println(app.client.toString());
+        app.printClient();
     }
 
     @Autowired
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public void printClient(){
+        String s = String.format("%s with id: %d says %s%n",
+                client.getName(),
+                client.getId(),
+                client.getGreeting());
+
+        System.out.println(s);
     }
 }
