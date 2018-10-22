@@ -9,14 +9,15 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
-@Service
 public class App {
 
-    @Autowired
     Client client;
-
-    @Autowired
     EventLogger logger;
+
+    public App(Client client, EventLogger logger) {
+        this.client = client;
+        this.logger = logger;
+    }
 
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
@@ -28,6 +29,8 @@ public class App {
         e.setMsg("event msg for 1");
 
         app.logEvent(e);
+
+        context.registerShutdownHook();
     }
 
     public void logEvent(Event event) {
