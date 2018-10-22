@@ -9,14 +9,35 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+@Component
 public class FileEventLogger implements EventLogger {
 
     Path file;
 
-    public FileEventLogger(Path file) {
-        this.file = file;
+    @Value("${fileName}")
+    String fileName;
+
+    public FileEventLogger() {
+    }
+
+    public FileEventLogger(String fileName) {
+        this.fileName = fileName;
+    }
+
+    @PostConstruct
+    private void init() throws IOException {
+
+        file = Paths.get(fileName);
+        if(!Files.exists(file)){
+            return;
+        }
+
+        if(!Files.isWritable(file)){
+            throw new IOException();
+        }
     }
 
     @Override

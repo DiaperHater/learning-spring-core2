@@ -5,6 +5,7 @@ import com.val.beans.Client;
 import com.val.loggers.EventLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +20,7 @@ public class AppConfig {
     Client client;
 
     @Autowired
-    @Qualifier("fileEventLogger")
+    @Qualifier("cacheFileEventLogger")
     EventLogger logger;
 
     @Bean
@@ -28,4 +29,9 @@ public class AppConfig {
 
         return app;
     }
+
+//    @Bean
+//    public PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
+//        return  new PropertyPlaceholderConfigurer();
+//    }
 }

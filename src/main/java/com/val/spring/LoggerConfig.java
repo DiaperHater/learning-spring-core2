@@ -11,7 +11,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
+import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -21,21 +23,4 @@ public class LoggerConfig {
 
     @Autowired
     Environment env;
-
-    @Bean
-    public EventLogger consoleEventLogger() {
-        EventLogger logger = new ConsoleEventLogger();
-
-        return logger;
-    }
-
-    @Bean
-    public EventLogger fileEventLogger() {
-
-        Path file = Paths.get(env.getProperty("fileName"));
-
-        EventLogger logger = new FileEventLogger(file);
-
-        return logger;
-    }
 }
