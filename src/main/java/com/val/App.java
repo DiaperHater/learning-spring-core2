@@ -5,23 +5,34 @@ import com.val.beans.Event;
 import com.val.beans.EventType;
 import com.val.loggers.EventLogger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class App {
 
+    @Autowired
     Client client;
+
+    @Autowired
+    @Qualifier("consoleEventLogger")
     EventLogger defaultLogger;
 
     @Resource(name = "loggerMap")
     Map<EventType, EventLogger> loggers;
 
-    public App(Client client, EventLogger defaultLogger) {
+    public App() {
+    }
+
+    public App(Client client, EventLogger defaultLogger, Map loggers) {
         this.client = client;
         this.defaultLogger = defaultLogger;
+        this.loggers = loggers;
     }
 
     public static void main(String[] args) {

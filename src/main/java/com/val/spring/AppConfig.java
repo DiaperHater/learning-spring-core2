@@ -3,10 +3,7 @@ package com.val.spring;
 import com.val.App;
 import com.val.beans.Client;
 import com.val.beans.EventType;
-import com.val.loggers.CacheFileEventLogger;
-import com.val.loggers.ConsoleEventLogger;
-import com.val.loggers.EventLogger;
-import com.val.loggers.FileEventLogger;
+import com.val.loggers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
@@ -35,18 +32,14 @@ public class AppConfig {
     @Autowired
     CacheFileEventLogger cacheFileEventLogger;
 
-    @Bean
-    public App app() {
-        App app = new App(client, consoleEventLogger);
-
-        return app;
-    }
+    @Autowired
+    CombinedEventLogger combinedEventLogger;
 
     @Bean
     public Map<EventType, EventLogger> loggerMap() {
         Map map = new HashMap();
         map.put(EventType.INFO, consoleEventLogger);
-        map.put(EventType.ERROR, fileEventLogger);
+        map.put(EventType.ERROR, combinedEventLogger);
 
         return map;
     }
