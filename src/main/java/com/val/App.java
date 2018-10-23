@@ -5,19 +5,23 @@ import com.val.beans.Event;
 import com.val.beans.EventType;
 import com.val.loggers.EventLogger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 public class App {
 
     Client client;
-    EventLogger logger;
+    EventLogger defaultLogger;
 
-    public App(Client client, EventLogger logger) {
+    @Resource(name = "loggerMap")
+    Map<EventType, EventLogger> loggers;
+
+    public App(Client client, EventLogger defaultLogger) {
         this.client = client;
-        this.logger = logger;
+        this.defaultLogger = defaultLogger;
     }
 
     public static void main(String[] args) {
@@ -29,9 +33,9 @@ public class App {
         Event e = (Event) context.getBean("event");
         e.setMsg("event msg for 1");
         e.setType(EventType.ERROR);
-//        app.logEvent(e);
 
-        System.out.println(e);
+        app.logEvent(e);
+
         context.registerShutdownHook();
     }
 
@@ -39,6 +43,12 @@ public class App {
 
         String message = event.getMsg().replace(String.valueOf(client.getId()), client.getName());
         event.setMsg(message);
+
+        EventLogger logger = loggers.get(event.getType());
+
+        if(logger == null){
+            logger = defaultLogger;
+        }
 
         logger.logEvent(event);
     }
