@@ -14,12 +14,9 @@ public class Event {
     static final AtomicInteger integer = new AtomicInteger(0);
     final int id;
     String msg;
-
-    @Value("#{new java.util.Date()}")
-    Date date;
-
-    @Value("#{T(java.text.DateFormat).getDateTimeInstance()}")
-    DateFormat dateFormat;
+    EventType type;
+    @Value("#{new java.util.Date()}") Date date;
+    @Value("#{T(java.text.DateFormat).getDateTimeInstance()}") DateFormat dateFormat;
 
     public Event() {
         id = integer.getAndIncrement();
@@ -29,11 +26,20 @@ public class Event {
         this.msg = msg;
     }
 
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Event{" +
                 "id=" + id +
                 ", msg='" + msg + '\'' +
+                ", type=" + type +
                 ", date=" + dateFormat.format(date) +
                 '}';
     }

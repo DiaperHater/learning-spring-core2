@@ -2,6 +2,7 @@ package com.val;
 
 import com.val.beans.Client;
 import com.val.beans.Event;
+import com.val.beans.EventType;
 import com.val.loggers.EventLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -27,9 +28,10 @@ public class App {
         App app = (App) context.getBean("app");
         Event e = (Event) context.getBean("event");
         e.setMsg("event msg for 1");
+        e.setType(EventType.ERROR);
+//        app.logEvent(e);
 
-        app.logEvent(e);
-
+        System.out.println(e);
         context.registerShutdownHook();
     }
 
