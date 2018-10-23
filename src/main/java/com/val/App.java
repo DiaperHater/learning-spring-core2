@@ -55,6 +55,11 @@ public class App {
         String message = event.getMsg().replace(String.valueOf(client.getId()), client.getName());
         event.setMsg(message);
 
+        if(loggers == null){
+            defaultLogger.logEvent(event);
+            System.out.println("##############++++++++++++++##########################");
+            return;
+        }
         EventLogger logger = loggers.get(event.getType());
 
         if(logger == null){

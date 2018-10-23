@@ -44,8 +44,4 @@ public class AppConfig {
         return map;
     }
 
-//    @Bean
-//    public PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
-//        return  new PropertyPlaceholderConfigurer();
-//    }
 }
