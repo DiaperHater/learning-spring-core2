@@ -7,10 +7,7 @@ import com.val.loggers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +15,7 @@ import java.util.Map;
 @Configuration
 @ComponentScan(basePackageClasses = com.val.App.class)
 @PropertySource("classpath:client.properties")
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class AppConfig {
 
     @Autowired
