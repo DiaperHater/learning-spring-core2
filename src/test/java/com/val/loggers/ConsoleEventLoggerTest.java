@@ -1,24 +1,41 @@
 package com.val.loggers;
 
-import org.junit.Before;
+import com.val.beans.Event;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.stereotype.Component;
+import java.io.PrintStream;
 
-import javax.annotation.Resource;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import static org.junit.Assert.*;
 
+@RunWith(MockitoJUnitRunner.class)
+@Component
 public class ConsoleEventLoggerTest {
 
-    @Autowired
+
+    @Mock
+    PrintStream printStream;
+
+    @InjectMocks
     ConsoleEventLogger loggerUnderTest;
 
-    @Before
-    public void setUp() throws Exception {
-
-    }
 
     @Test
     public void logEvent() {
+
+        Event eventMock = mock(Event.class);
+        when(eventMock.toString()).thenReturn("");
+
+        loggerUnderTest.logEvent(eventMock);
+
+        verify(printStream).println(anyString());
     }
 }
