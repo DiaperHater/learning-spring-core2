@@ -9,29 +9,30 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
 @ComponentScan(basePackageClasses = com.val.App.class)
 @PropertySource("classpath:client.properties")
-@EnableAspectJAutoProxy(proxyTargetClass = true)
+@EnableAspectJAutoProxy
 public class AppConfig {
 
     @Autowired
     Client client;
 
-    @Autowired
-    ConsoleEventLogger consoleEventLogger;
+    @Resource(name = "consoleEventLogger")
+    EventLogger consoleEventLogger;
 
-    @Autowired
-    FileEventLogger fileEventLogger;
+    @Resource(name = "fileEventLogger")
+    EventLogger fileEventLogger;
 
-    @Autowired
-    CacheFileEventLogger cacheFileEventLogger;
+    @Resource(name = "cacheFileEventLogger")
+    EventLogger cacheFileEventLogger;
 
-    @Autowired
-    CombinedEventLogger combinedEventLogger;
+    @Resource(name = "combinedEventLogger")
+    EventLogger combinedEventLogger;
 
     @Bean
     public Map<EventType, EventLogger> loggerMap() {

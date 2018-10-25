@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +21,11 @@ public class LoggerConfig {
     @Autowired
     Environment env;
 
-    @Autowired
-    ConsoleEventLogger consoleEventLogger;
+    @Resource(name = "consoleEventLogger")
+    EventLogger consoleEventLogger;
 
-    @Autowired
-    FileEventLogger fileEventLogger;
+    @Resource(name = "fileEventLogger")
+    EventLogger fileEventLogger;
 
     @Bean
     public List<EventLogger> loggersToCombine() {
