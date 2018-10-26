@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class CacheFileEventLogger extends FileEventLogger {
     public CacheFileEventLogger() {
     }
 
-    public CacheFileEventLogger(String fileName, int cacheCapacity) {
+    public CacheFileEventLogger(String fileName, int cacheCapacity) throws IOException {
         super(fileName);
         this.cacheCapacity = cacheCapacity;
     }

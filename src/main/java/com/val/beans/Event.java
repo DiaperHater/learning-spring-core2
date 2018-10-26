@@ -22,6 +22,12 @@ public class Event {
         id = integer.getAndIncrement();
     }
 
+    public Event(Date date, DateFormat dateFormat) {
+        this();
+        this.date = date;
+        this.dateFormat = dateFormat;
+    }
+
     public void setMsg(String msg) {
         this.msg = msg;
     }

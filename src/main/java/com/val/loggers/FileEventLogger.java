@@ -23,8 +23,9 @@ public class FileEventLogger implements EventLogger {
     public FileEventLogger() {
     }
 
-    public FileEventLogger(String fileName) {
+    public FileEventLogger(String fileName) throws IOException {
         this.fileName = fileName;
+        init();
     }
 
     @PostConstruct
