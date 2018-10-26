@@ -28,7 +28,7 @@ public class FileEventLogger implements EventLogger {
     }
 
     @PostConstruct
-    private void init() throws IOException {
+    public void init() throws IOException {
 
         file = Paths.get(fileName);
         if(!Files.exists(file)){
