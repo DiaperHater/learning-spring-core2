@@ -2,6 +2,7 @@ package com.val.loggers;
 
 import mockit.Mock;
 import mockit.MockUp;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -14,5 +15,12 @@ public class FileEventLoggerTest {
     FileEventLogger loggerUnderTest;
 
 
+    @Ignore
+    @Test(expected = IOException.class)
+    public void logEvent_forbiddenFileName_throwsIOException() {
+        loggerUnderTest = new FileEventLogger("//---\\\\");
+
+
+    }
 
 }

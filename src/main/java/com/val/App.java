@@ -36,18 +36,18 @@ public class App {
     }
 
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        context.register(com.val.spring.AppConfig.class);
-        context.refresh();
+//        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+//        context.register(com.val.spring.AppConfig.class);
+//        context.refresh();
 
-        App app = (App) context.getBean("app");
-        Event e = (Event) context.getBean("event");
+        App app = (App) Context.getBean("app");
+        Event e = (Event) Context.getBean("event");
         e.setMsg("event msg for 1");
         e.setType(EventType.ERROR);
 
         app.logEvent(e);
 
-        context.registerShutdownHook();
+        Context.registerShutdownHook();
     }
 
     public void logEvent(Event event) {
