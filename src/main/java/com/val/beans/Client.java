@@ -9,6 +9,9 @@ public class Client {
     String name;
     String greeting;
 
+    public Client() {
+    }
+
     public Client(int id, String name, String greeting) {
         this.id = id;
         this.name = name;

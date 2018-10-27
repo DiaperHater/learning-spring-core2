@@ -1,6 +1,5 @@
 package com.val.loggers;
 
-import com.val.Context;
 import com.val.beans.Event;
 import org.junit.After;
 import org.junit.AfterClass;
