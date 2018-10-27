@@ -28,17 +28,30 @@ public class Event {
         this.dateFormat = dateFormat;
     }
 
+    public Event(String msg, EventType type, Date date, DateFormat dateFormat) {
+        this();
+        this.msg = msg;
+        this.type = type;
+        this.date = date;
+        this.dateFormat = dateFormat;
+    }
+
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
     }
 
     public EventType getType() {
         return type;
     }
 
-    public void setType(EventType type) {
-        this.type = type;
-    }
 
     @Override
     public String toString() {
@@ -50,7 +63,4 @@ public class Event {
                 '}';
     }
 
-    public String getMsg() {
-        return msg;
-    }
 }

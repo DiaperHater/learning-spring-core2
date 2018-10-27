@@ -10,8 +10,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.Map;
+
+import static java.lang.String.format;
 
 @Service
 public class App {
@@ -24,48 +25,54 @@ public class App {
     EventLogger defaultLogger;
 
     @Resource(name = "loggerMap")
-    Map<EventType, EventLogger> loggers;
+    Map<EventType, EventLogger> loggerMap;
 
     public App() {
     }
 
-    public App(Client client, EventLogger defaultLogger, Map loggers) {
+    public App(Client client, EventLogger defaultLogger, Map loggerMap) {
         this.client = client;
         this.defaultLogger = defaultLogger;
-        this.loggers = loggers;
+        this.loggerMap = loggerMap;
     }
 
     public static void main(String[] args) {
-//        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-//        context.register(com.val.spring.AppConfig.class);
-//        context.refresh();
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        context.register(com.val.spring.AppConfig.class);
+        context.refresh();
 
-        App app = (App) Context.getBean("app");
-        Event e = (Event) Context.getBean("event");
+        App app = (App) context.getBean("app");
+        Event e = (Event) context.getBean("event");
         e.setMsg("event msg for 1");
         e.setType(EventType.ERROR);
 
         app.logEvent(e);
 
-        Context.registerShutdownHook();
+        context.registerShutdownHook();
     }
 
     public void logEvent(Event event) {
 
-        String message = event.getMsg().replace(String.valueOf(client.getId()), client.getName());
+        String message = event.getMsg().replace(
+                String.valueOf(client.getId()),
+                format("%s %s", client.getName(), client.getGreeting()));
         event.setMsg(message);
 
-        if(loggers == null){
+        if(loggerMap == null){
             defaultLogger.logEvent(event);
-            System.out.println("##############++++++++++++++##########################");
             return;
         }
-        EventLogger logger = loggers.get(event.getType());
+
+        EventLogger logger = loggerMap.get(event.getType());
 
         if(logger == null){
             logger = defaultLogger;
         }
 
         logger.logEvent(event);
+    }
+
+    public void setLoggerMap(Map<EventType, EventLogger> loggersMap) {
+        this.loggerMap = loggersMap;
     }
 }
